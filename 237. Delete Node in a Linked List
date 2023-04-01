@@ -1,0 +1,54 @@
+There is a singly-linked list head and we want to delete a node node in it.
+
+You are given the node to be deleted node. You will not be given access to the first node of head.
+
+All the values of the linked list are unique, and it is guaranteed that the given node node is not the last node in the linked list.
+
+ 
+
+Example 1:
+
+Input: head = [4,5,1,9], node = 5
+Output: [4,1,9]
+Explanation: You are given the second node with value 5, the linked list should become 4 -> 1 -> 9 after calling your function.
+
+Example 2:
+
+Input: head = [4,5,1,9], node = 1
+Output: [4,5,9]
+Explanation: You are given the third node with value 1, the linked list should become 4 -> 5 -> 9 after calling your function.
+ 
+ Constraints:
+
+The number of the nodes in the given list is in the range [2, 1000].
+-1000 <= Node.val <= 1000
+The value of each node in the list is unique.
+The node to be deleted is in the list and is not a tail node.
+
+
+Approach : 
+
+1) We have given Direct access of Node to be deleted
+2) For deleting Specific Node in Linked List we must Stand Previous node to that
+3) So we will Use swap Approach here we swap the node to be deleted and next node to that
+4) And finally Delete that node
+
+Time Complexity : O(1)
+Space Complexity : O(1)
+
+Code : 
+
+class Solution {
+public:
+    void deleteNode(ListNode* node) {
+        if(node->next ==NULL) delete node;  //if given node is tail node (but here this is not possible -- Given)
+        ListNode *temp = node;
+        swap(node->val, node->next->val);  // 4-->1-->5-->9
+        ListNode *temp2 = node->next;      // temp2 will store address of 5 here 
+        // Now we have to make connection between 1 and 9 then delete temp2
+        node->next = node->next->next;
+        
+        delete temp2;
+        
+    }
+};
