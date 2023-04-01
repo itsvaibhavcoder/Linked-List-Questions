@@ -1,0 +1,79 @@
+Given the head of a singly linked list, return the middle node of the linked list.
+
+If there are two middle nodes, return the second middle node.
+
+
+Example 1:
+
+
+Input: head = [1,2,3,4,5]
+Output: [3,4,5]
+Explanation: The middle node of the list is node 3.
+Example 2:
+
+
+Input: head = [1,2,3,4,5,6]
+Output: [4,5,6]
+Explanation: Since the list has two middle nodes with values 3 and 4, we return the second one.
+ 
+
+Constraints:
+
+The number of nodes in the list is in the range [1, 100].
+1 <= Node.val <= 100
+
+Approach 1 :
+
+1) Find the length of Linked List 
+2) Just move temp(head) forward by length/2 times
+3) Return temp
+
+
+Time Complexity : O(n)
+Space Complexity : O(1)
+
+Code :
+
+class Solution {
+public:
+    ListNode* middleNode(ListNode* head) {
+         ListNode * temp = head;
+        
+        int len = 0;
+        
+        while(temp!=NULL){
+            len++;
+            temp = temp->next;
+        }
+        int half = len/2;
+        temp = head;
+        while(half--){
+            temp = temp->next;
+        }
+        return temp;
+    }
+};
+
+
+Approach 2 : Tortile Method (two Pointer Slow and Fast)
+1) Two pointer used here one is fast and another is slow
+2) Both start from head 
+3) Slow will take jump of 1 node and fast will take jump of 2 node
+4) When fast or fast next will at null slow will be at middle of linked List 
+
+Time Complexity : O(1)
+Space Complexity : O(1)
+
+Code :
+
+class Solution {
+public:
+    ListNode* middleNode(ListNode* head) {
+        ListNode *slow = head, *fast = head;
+        while(fast!=NULL && fast->next!=NULL){
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+        return slow;
+    }
+};
