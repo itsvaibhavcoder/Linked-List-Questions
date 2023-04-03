@@ -1,0 +1,79 @@
+Given the head of a singly linked list, reverse the list, and return the reversed list.
+
+Example 1:
+
+Input: head = [1,2,3,4,5]
+Output: [5,4,3,2,1]
+
+Example 2:
+
+Input: head = [1,2]
+Output: [2,1]
+Example 3:
+
+Input: head = []
+Output: []
+ 
+
+Constraints:
+
+The number of nodes in the list is the range [0, 5000].
+-5000 <= Node.val <= 5000
+ 
+
+Follow up: A linked list can be reversed either iteratively or recursively. Could you implement both?
+
+Approach 1 : Iterative Approach 
+
+1) We kept three pointer here previous(p) , current(c), next(n)
+2) First p = NULL, c = head , n = head->next;
+3) Now we will make the connection between the c and p  as c->next = p; 
+4) Now move forward as p=c, c=n ans n = n->next
+5) We repeat this process while c!=NULL
+6) And Finally return the p
+
+Time Complexity : O(n)
+Space Complexity : O(1)
+
+Code : 
+
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        
+         if(head==NULL) return NULL;
+         ListNode *p = NULL, *c = head, *n = head->next;
+        while(c!=NULL){
+            c->next = p;
+            p=c;
+            c=n;
+            if(n!=NULL)
+            n=n->next;
+        }
+        return p;
+    }
+};
+
+Approach 2 : Recursive way
+
+Time Complexity : O(n)
+Space Complexity : O(1)
+
+Code : 
+
+class Solution {
+public:
+    ListNode* reverse(ListNode* head){
+      if(head->next==NULL){
+        return head;
+      }
+      ListNode* reverseHead = reverse(head->next);
+      head->next->next=head;
+      head->next=NULL;
+      return reverseHead;
+}
+    ListNode* reverseList(ListNode* head) {
+        if(head==NULL)return NULL;
+       return reverse(head);
+    }
+};
